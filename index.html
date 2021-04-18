@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Theory - Assignment</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/360f115c61.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+            <a class="navbar-brand" href="/microwave-dfa/">Deterministic Finite Automaton</a>
+          </div>
+          <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+          <div id="navbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/microwave-dfa/" style="font-size: 16px">หน้าแรก</a></li>
+              <li><a href="#" onclick="design_by();" style="font-size: 16px">ผู้จัดทำ</a></li>
+                <li style="background-color: #00b0e4;"><a href="#" onclick="detail_dfa();" style="color: #FFFFFF;font-size: 16px"><i class="fas fa-question"></i> รายละเอียดงาน</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+  
+      <div class="container">
+        <div class="page-header">
+          <h2 style="font-weight: bold;">การจำลองการทำงาน ไมโครเวฟ</h2>
+          <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สำหรับอำนวยความสะดวกในการอุ่นอาหาร โดยที่ เลือกความร้อน เลือกเวลา แค่นี้ก็สามารถอุ่นอาหารได้แล้ว พร้อมทั้งเปิดให้บริการตลอด 24 ชั่วโมง.</p>
+          <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;h = High m = Medium l = Low 1 = 1 minute 2 = 2 minute 3 = 3 minute s = Start c = Cancle</p>
+          <h4><b>ตัวอย่างเช่น<b/></h4>
+          <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ต้องการความร้อนที่ High เป็นเวลา 1 นาที ให้กรอก h1s แล้วกดปุ่ม <img height="20" width="20" src="images/play.png"> เพื่อเริ่มการทำงาน</p>
+          <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;การยกเลิกสามารถพิมพ์ c ต่อท้ายได้เลย เช่น h1sc หรือ h1c หรือกดปุ่ม  <img height="16" width="16" src="images/stop.png"> เพื่อยกเลิกการทำงาน</p>        
+        </div>
+        <div class="row">
+            <div class="col-xs-9">
+                <img id="dfa_image1" src="image/s0.gif" class="img-responsive" style="border: #0f0f0f solid 1px;border-radius: 7px;" >
+                <br/>
+                <div id="dfa_notification" style="display: none;" class="alert alert-success alert-dismissible text-center" role="alert">
+                    <p id="dfa_result" style="font-weight: bold"></p>
+                </div>
+                <img id="dfa_image" src="images/s0.png" class="img-responsive" style="border: #0f0f0f solid 1px;border-radius: 7px;" >
+            </div>
+            <div class="col-xs-3">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                        <div class="col-xs-12">
+                                            <p style="font-size:13px;font-weight: bold" class=""><i class="fas fa-stream"></i>
+                                                ข้อมูล
+                                        </div>
+                                    <div class="col-xs-12">
+  
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="dfa_data"
+                                                   placeholder="กรอกข้อมูล"
+                                                   name="dfa_data"
+                                                   autocomplete="off" value=""
+                                                   style="font-size: 13px;" autofocus>
+                                            <div class="input-group-btn">
+                                                <button id="dfa_go"  class="btn btn-default"
+                                                        type="submit" onclick="beginValidation()"><i class="fas fa-play"></i></i>
+                                                </button>
+                                                <button id="dfa_stop"  class="btn btn-default"
+                                                        onclick="clearTime();"><i class="fas fa-stop"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="col-xs-12" style="margin-top: 5px">
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default">Left</button>
+                                            <button type="button" class="btn btn-default">Middle</button>
+                                            <button type="button" class="btn btn-default">Right</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-xs-12" style="margin-top: 10px">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p style="font-size:13px;font-weight: bold" class=""><i class="fas fa-stream"></i>
+                                            ผลลัพธ์
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div id="transitionDiv">
+                                            <ul id="transitionList">
+  
+                                            </ul>
+                                            <h3 id="results"></h3>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="col-xs-12" style="margin-top: 5px">
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default">Left</button>
+                                            <button type="button" class="btn btn-default">Middle</button>
+                                            <button type="button" class="btn btn-default">Right</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="js/stopwatch.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="dfa.js"></script>
+</body>
+</html>
