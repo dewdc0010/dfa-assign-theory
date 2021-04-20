@@ -27,6 +27,7 @@ const zeroesThenOnesDFA = {
         h:"s1",
         m:"s2",
         l:"s3",
+        s:"s1",
         isAccept:false,
         isTimer:false
     },
@@ -38,6 +39,7 @@ const zeroesThenOnesDFA = {
         h:"s1",
         m:"s2",
         l:"s3",
+        s:"s2",
         isAccept:false,
         isTimer:false
     },
@@ -49,6 +51,7 @@ const zeroesThenOnesDFA = {
         h:"s1",
         m:"s2",
         l:"s3",
+        s:"s3",
         isAccept:false,
         isTimer:false
     },
